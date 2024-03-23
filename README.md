@@ -32,3 +32,7 @@ A CNN will be trained by splitting the data into training, testing, and validati
 <br/>
 Afterwards, the results obtained after Hyperparameter Tuning of our model will be compared with different models to analyze which one performs with the best metrics. In the end, we will choose the best model to further enhance its performance.
 
+## Link To Application
+
+<a href="https://n9.cl/skindiagnostic" target="_blank">Skin Condition Detection App<a>
+
