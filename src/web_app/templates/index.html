@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico de Enfermedades de la Piel</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif; /* Fuente predeterminada */
+            background-color: #f0f0f0; /* Color de fondo gris claro */
+            margin: 0; /* Eliminar márgenes predeterminados */
+            padding: 0; /* Eliminar relleno predeterminado */
+        }
+
+        .container {
+            max-width: 800px; /* Ancho máximo del contenedor */
+            margin: 0 auto; /* Centrar el contenedor en la página */
+            padding: 20px; /* Espaciado interno */
+            background-color: #fff; /* Color de fondo blanco */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+
+        /* Estilos para encabezados */
+        h1 {
+            text-align: center; /* Centrar el texto */
+            color: #333; /* Color del texto gris oscuro */
+        }
+
+        h2, h3 {
+            color: #666; /* Color del texto gris */
+        }
+
+        /* Estilos para el formulario */
+        form {
+            margin-top: 20px; /* Espaciado superior */
+            text-align: center; /* Centrar contenido del formulario */
+        }
+
+        .seleccionar-imagen, .boton-diagnostico {
+            display: inline-block; /* Mostrar en línea */
+            margin: 10px; /* Margen exterior */
+            padding: 10px 20px; /* Espaciado interno */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Bordes redondeados */
+            font-size: 16px; /* Tamaño de fuente */
+            cursor: pointer; /* Cursor tipo puntero */
+            transition: background-color 0.3s ease; /* Transición suave del color de fondo */
+        }
+
+        .seleccionar-imagen:hover, .boton-diagnostico:hover {
+            background-color: #4CAF50; /* Cambiar color de fondo al pasar el ratón */
+            color: #fff; /* Cambiar color del texto al pasar el ratón */
+        }
+
+        /* Estilos para resultados del diagnóstico */
+        .resultado {
+            margin-top: 20px; /* Espaciado superior */
+            display: flex; /* Usar flexbox para el diseño */
+            align-items: center; /* Alinear elementos verticalmente al centro */
+        }
+
+        .imagen-cargada {
+            max-width: 300px; /* Ancho máximo de la imagen */
+            height: auto; /* Mantener proporción de aspecto */
+            margin-right: 20px; /* Margen derecho */
+        }
+
+        .texto-container {
+            flex: 1; /* Ocupar el espacio restante */
+        }
+
+        /* Estilos para las imágenes de ejemplo */
+        .ejemplos-imagenes {
+            margin-top: 20px; /* Espaciado superior */
+            display: flex; /* Usar flexbox para el diseño */
+            justify-content: space-between; /* Distribuir las imágenes uniformemente */
+        }
+
+        .ejemplos-imagenes img {
+            max-width: 200px; /* Ancho máximo de la imagen */
+            height: auto; /* Mantener proporción de aspecto */
+        }
+
+        .ejemplos-imagenes h3 {
+            text-align: center; /* Centrar texto */
+        }
+
+        /* Estilos para el logotipo */
+        .logo-container {
+            text-align: center; /* Centrar contenido */
+            margin-bottom: 20px; /* Espaciado inferior */
+        }
+
+        .logo {
+            max-width: 100%; /* Ancho máximo */
+            height: auto; /* Mantener proporción de aspecto */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="https://english.onlinekhabar.com/wp-content/uploads/2023/03/image-19-1024x164.png" alt="Logotipo" class="logo">
+        </div>
+        <h1>Diagnóstico de Enfermedades de la Piel</h1>
+        <form action="/diagnosticar" method="post" enctype="multipart/form-data">
+            <input type="file" name="imagen" accept="image/*" required class="seleccionar-imagen">
+            <button type="submit" class="boton-diagnostico">Diagnosticar</button>
+        </form>
+        
+        <!-- Mostrar la imagen cargada -->
+        {% if imagen_cargada %}
+        <div class="resultado">
+            <img src="{{ url_for('static', filename=imagen_cargada) }}" alt="Imagen cargada" class="imagen-cargada">
+            <div class="texto-container">
+                <h2>Resultado del diagnóstico</h2>
+                <p><strong>Clase predicha:</strong> {{ resultado_diagnostico.nombre }}</p>
+                <p><strong>Probabilidad:</strong> {{ resultado_diagnostico.probabilidad }}</p>
+                <h3>Descripción:</h3>
+                <p>{{ resultado_diagnostico.definicion }}</p>
+                <h3>Tratamiento sugerido:</h3>
+                <ul>
+                    {% for paso in resultado_diagnostico.tratamiento %}
+                    <li>{{ paso }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
